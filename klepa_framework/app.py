@@ -47,6 +47,9 @@ class Klepa:
         _port = 8080
         host = host or _host
         port = port or _port
-        with make_server(host, port, self) as httpd:
-            print(f'Run on {host}:{port}')
-            httpd.serve_forever()
+        try:
+            with make_server(host, port, self) as httpd:
+                print(f'Run on {host}:{port}\nPress Ctrl+C for stop')
+                httpd.serve_forever()
+        except KeyboardInterrupt:
+            print('App stopped')
