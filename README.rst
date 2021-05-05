@@ -17,7 +17,7 @@ Klepa
 
 .. code-block:: python
 
-    # save this as app.py
+
     from klepa_framework import Klepa
     from urls import routes, fronts
 
