@@ -8,19 +8,21 @@
     $ pip install klepa_framework
 
 ## Использование
+----------------
 
 .. code-block:: python
 
-    from klepa_framework import Klepa
-    from urls import routes, fronts
+    # save this as app.py
+    from flask import Flask
 
+    app = Flask(__name__)
 
-    app = Klepa(routes, fronts)
-
-
-    if __name__ == '__main__':
-        app.run()
+    @app.route("/")
+    def hello():
+        return "Hello, World!"
 
 .. code-block:: text
 
-    Run on 127.0.0.1:8080
+    $ flask run
+      * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+
