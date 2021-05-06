@@ -1,5 +1,7 @@
 from wsgiref.simple_server import make_server
 
+from klepa_framework.requests import Request
+
 
 def PageNotFound404():
     def __call__(self, request):
@@ -15,10 +17,10 @@ class Klepa:
         return self.wsgi_app(environ, start_response)
 
     def wsgi_app(self, environ, start_response):
-        context = self.request_context(environ)
+        rq = Request(environ)
 
         # отработка паттерна page controller
-        view = self.routes_lst.get(context['PATH'])
+        view = self.routes_lst.get(rq.path)
         if not view:
             view = PageNotFound404()
         request = {}
@@ -30,12 +32,6 @@ class Klepa:
         code, body = view(request)
         start_response(code, [('Content-Type', 'text/html')])
         return [body.encode('utf-8')]
-
-    def request_context(self, environ):
-        path = environ.get('PATH_INFO')
-        if not path.endswith('/'):
-            path = f'{path}/'
-        return {'PATH': path}
 
     def run(self, host=None, port=None):
         """Runs the app on a dev server
