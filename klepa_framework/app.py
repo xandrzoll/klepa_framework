@@ -24,7 +24,8 @@ class Klepa:
         if not view:
             view = PageNotFound404()
         request = {}
-
+        request['data'] = rq.data
+        request['request_params'] = rq.request_params
         # отработка паттерна front controller
         for front in self.fronts_lst:
             front(request)
